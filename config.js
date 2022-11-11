@@ -1,4 +1,4 @@
-import { @Vigilant, @SwitchProperty } from 'Vigilance';
+import { @Vigilant, @SwitchProperty } from 'Vigilance'; // Works fine, VSCode is a bitch.
 
 @Vigilant("ixMod")
 class Settings {
