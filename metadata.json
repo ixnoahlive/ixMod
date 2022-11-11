@@ -1,0 +1,8 @@
+{
+  "name": "ixMod",
+  "creator": "ixNoah",
+  "description": "ixMod does it all",
+  "entry": "index.js",
+  "version":"1.0.0",
+  "requires": ["Vigilance"]
+}
