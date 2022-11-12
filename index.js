@@ -6,7 +6,7 @@ import 'Vigilance'
 // i am so sorry
 
 let HouseInfo = {
-	owner:'<None>',
+	owner:'Steve',
 	guests:0,
 	cookies:0
 }
@@ -16,7 +16,7 @@ register('renderOverlay', () => {
 	const lines = Scoreboard.getLines()
 	const sblines = TabList.getFooter().split('\n')
 	if (U.inHousing()) {
-		if (Settings.houseinfo==true && HouseInfo.owner!=='<None>') {
+		if (Settings.houseinfo==true && HouseInfo.owner) {
 			let x = new Text(`&e&lHOUSE INFO\nHouse Owner: &b${HouseInfo.owner}\n&fGuests: &a${U.commafy(HouseInfo.guests)}\n&fCookies: &6${U.commafy(HouseInfo.cookies)}`, 5, 5).setShadow(true)
 			x.draw()
 		}
@@ -46,7 +46,7 @@ register('step', () => {
 			}
 		} else {
 			HouseInfo = {
-				owner:'<None>',
+				owner:'Steve',
 				guests:0,
 				cookies:0
 			}
