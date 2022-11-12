@@ -15,7 +15,7 @@ let HouseInfo = {
 register('renderOverlay', () => {
 	const lines = Scoreboard.getLines()
 	const sblines = TabList.getFooter().split('\n')
-	if (Scoreboard.getTitle().match('HOUSING') && lines[lines.length-1].toString().toLowerCase().match('m')) {
+	if (U.inHousing()) {
 		if (Settings.houseinfo==true) {
 			let x = new Text(`&e&lHOUSE INFO\nHouse Owner: &b${HouseInfo.owner}\n&fGuests: &a${U.commafy(HouseInfo.guests)}\n&fCookies: &6${U.commafy(HouseInfo.cookies)}`, 5, 5).setShadow(true)
 			x.draw()
@@ -36,7 +36,7 @@ register('command', () => Settings.save()).setName('ixsave')
 register('step', () => {
 	const lines = Scoreboard.getLines()
 	const sblines = TabList.getFooter().split('\n')
-		if (Scoreboard.getTitle().match('HOUSING') && lines[lines.length-1].toString().toLowerCase().match('m')) {
+		if (U.inHousing()) {
 			if (Settings.houseinfo==true) {
 				HouseInfo.owner = sblines[1].split(' ')
     			HouseInfo.owner = HouseInfo.owner[HouseInfo.owner.length-1].replace(/§([a-z]|[0-9])/g, '')
@@ -53,5 +53,6 @@ register('step', () => {
 		}
 }).setFps(1)
 
-
-
+////////////////////
+// BUTTON GO BOOP //
+////////////////////
