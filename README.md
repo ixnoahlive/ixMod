@@ -1,5 +1,5 @@
 <div align="center">
-    <h2>ixMod</h2>
+    <h2>🚪 ixMod</h2>
     <p>ChatTriggers module providing utilities for Hypixel Housing</p>
     <a href="https://www.chattriggers.com/modules/v/Housetils">ChatTriggers</a>
     •
