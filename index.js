@@ -32,7 +32,7 @@ register('chat', (message, event) => {
 		ChatLib.chat(message)
 		cancel(event)
 	}
-}).setCriteria('&r&7* &r&f${message}')
+}).setCriteria('&r&7* &r${message}')
 
 //////////////
 // COMMANDS //
