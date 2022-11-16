@@ -9,8 +9,17 @@
 </div>
 <br>
 
-## About the project
+## 📕 About the project
 ixMod is a module for ChatTriggers that provides a better Hypixel Housing experience that isn't all too invasive.
 
-You might've seen jokes about ixMod in the Hypixel Housing community.
-These jokes are simply jokes and despite popular belief ixMod isn't the next coming of the flying spaghetti monster :P
+## 💡 Usage
+Install into `.minecraft/config/ChatTriggers/modules` and reload your modules.
+
+Type `/ixmod` to configure the mod!
+
+## 🎨 Contributing
+Please check the [issues]('/issues') page for things that need fixing/adding!
+
+If you want to make an issue for suggestions or bugs please do!
+
+Open a [pull request]('/pulls') after changes are made and it will be merged if it's good!
