@@ -23,7 +23,7 @@ class Settings {
     gui_houseinfo = false
     @SwitchProperty({
         name: 'Hide Action Asterisk',
-        description: 'Disables the asterisk in messages sent by actions\n&8Due to ChatTriggers, this does not apply to On Join messages.',
+        description: 'Disables the asterisk in messages sent by actions',
         category: 'Interface',
     })
     gui_actionMsg = false
