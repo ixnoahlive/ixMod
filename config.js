@@ -7,7 +7,7 @@ import { @Vigilant, @SwitchProperty, @CheckboxProperty, @ButtonProperty, @Select
         return categories.indexOf(a.name) - categories.indexOf(b.name);
     },
     getSubcategoryComparator: () => (a, b) => {
-        const subcategories = ["Slash Commands", "Hotkey Commands","Developer"];
+        const subcategories = ["Slash Commands", "Hotkey Commands","Developer","Definitely Real Options"];
 
         return subcategories.indexOf(a.getValue()[0].attributesExt.subcategory) -
             subcategories.indexOf(b.getValue()[0].attributesExt.subcategory);
@@ -67,6 +67,13 @@ class Settings {
     openConsole() {
         ChatLib.command('ct console js', true)
     }
+    @SwitchProperty({
+        name: "rat!!!! ogm!!!",
+        description: "Keep on plz\n&8(joke option, ixmod is open source! github.com/noahthenerd/ixmod)",
+        category: "Miscellaneous",
+        subcategory: 'Definitely Real Options'
+    })
+    jokeoption = true
 
     constructor() {
         this.initialize(this);
