@@ -18,8 +18,8 @@ Install into `.minecraft/config/ChatTriggers/modules` and reload your modules.
 Type `/ixmod` to configure the mod!
 
 ## 🎨 Contributing
-Please check the [issues]('/issues') page for things that need fixing/adding!
+Please check the [issues]('https://github.com/noahthenerd/ixmod/issues') page for things that need fixing/adding!
 
 If you want to make an issue for suggestions or bugs please do!
 
-Open a [pull request]('/pulls') after changes are made and it will be merged if it's good!
+Open a [pull request]('https://github.com/noahthenerd/ixmod/pulls') after changes are made and it will be merged if it's good!
