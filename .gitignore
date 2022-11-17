@@ -3,3 +3,5 @@
 .vscode
 node_modules
 config.toml
+housetracker/data.json
+housetracker/full/*
