@@ -7,6 +7,9 @@ const C10PacketCreativeInventoryAction = Java.type("net.minecraft.network.play.c
 
 class U {
     constructor() {
+        this.chat = (str) => {
+            return ChatLib.chat(`&9[&7ixMod&9] &f${str}`)
+        }
         this.commafy = (x) => {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }

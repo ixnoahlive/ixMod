@@ -1,4 +1,5 @@
 import { @Vigilant, @SwitchProperty, @CheckboxProperty, @ButtonProperty } from 'Vigilance'; // Works fine, VSCode is a bitch.
+const Manual = new TextComponent('&b[&9&nClick here to view the House Tracker Manual!&b]').setClick('open_url', 'https://github.com/NoahTheNerd/ixMod/tree/main/housetracker/README.md')
 
 @Vigilant("ixMod", "ixMod Config", {
     getCategoryComparator: () => (a, b) => {
@@ -7,7 +8,7 @@ import { @Vigilant, @SwitchProperty, @CheckboxProperty, @ButtonProperty } from '
         return categories.indexOf(a.name) - categories.indexOf(b.name);
     },
     getSubcategoryComparator: () => (a, b) => {
-        const subcategories = ["Slash Commands", "Developer","Definitely Real Options"];
+        const subcategories = ["Actions","House Info","Slash Commands", "Developer","Definitely Real Options"];
 
         return subcategories.indexOf(a.getValue()[0].attributesExt.subcategory) -
             subcategories.indexOf(b.getValue()[0].attributesExt.subcategory);
@@ -17,15 +18,24 @@ class Settings {
     ///////////////////
     //// Interface ////
     @SwitchProperty({
-        name: "House Info",
+        name: "Enable House Info",
         description: "Display House information in the top left",
         category: "Interface",
+        subcategory: "House Info"
     })
     gui_houseinfo = false
+    @SwitchProperty({
+        name: "Shorten Info",
+        description: "Compacts the House information into a single line",
+        category: "Interface",
+        subcategory: "House Info"
+    })
+    gui_houseinfocompact = false
     @SwitchProperty({
         name: 'Hide Action Asterisk',
         description: 'Disables the asterisk in messages sent by actions',
         category: 'Interface',
+        subcategory: "Actions"
     })
     gui_actionMsg = false
 
@@ -43,11 +53,26 @@ class Settings {
     //// House Tracker ////
     @SwitchProperty({
         name: "Enable Tracking",
-        description: "Logs your House's guest & cookie counter to a file every 5 minutes. Good for making charts & collecting info on your house while AFK.",
+        description: "Release your inner data scientist and log your House's guest & cookie counter to a file every 5 minutes. Must be in Creative Mode for it to work!",
         category: "House Tracker",
     })
     tracker_enabled = false
-    
+    @SwitchProperty({
+        name: "Unlimited Size",
+        description: "ONLY USE THIS IF YOU REALLY HAVE TO, THIS REMOVES ALL LIMITS FROM THE TRACKER AND MAY CAUSE A VERY LARGE FILE.",
+        category: "House Tracker",
+    })
+    tracker_unlimited = false
+    @ButtonProperty({
+        name: "About Tracking",
+        description: "Open the official House Tracker manual.",
+        category: "House Tracker",
+        placeholder: "Open Manual"
+    })
+    openManual() {
+        Client.currentGui.close()
+        ChatLib.chat(Manual)
+    }
 
     ///////////////////////
     //// Miscellaneous ////
