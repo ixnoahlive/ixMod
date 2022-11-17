@@ -7,7 +7,7 @@ import { @Vigilant, @SwitchProperty, @CheckboxProperty, @ButtonProperty, @Select
         return categories.indexOf(a.name) - categories.indexOf(b.name);
     },
     getSubcategoryComparator: () => (a, b) => {
-        const subcategories = ["Slash Commands", "Hotkey Commands","Developer","Definitely Real Options"];
+        const subcategories = ["Slash Commands", "Developer","Definitely Real Options"];
 
         return subcategories.indexOf(a.getValue()[0].attributesExt.subcategory) -
             subcategories.indexOf(b.getValue()[0].attributesExt.subcategory);
@@ -37,15 +37,6 @@ class Settings {
         subcategory: "Slash Commands"
     })
     cmd_unbreakable = true
-    
-    // Command Hotkeys
-    @SwitchProperty({
-        name: "[M] for Menu",
-        description: "Press [M] to open the Housing Menu",
-        category: "Commands",
-        subcategory: "Hotkey Commands"
-    })
-    cmd_keymenu = false
 
 
     //// Miscellaneous ////

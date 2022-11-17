@@ -60,10 +60,3 @@ register('step', () => {
 			}
 		}
 }).setFps(1)
-
-////////////////////
-// BUTTON GO BOOP //
-////////////////////
-
-const openHousingMenu = new KeyBind('Open Menu', Keyboard.KEY_M)
-openHousingMenu.registerKeyPress(() => {if (U.inHousing() && Settings.cmd_keymenu) {ChatLib.command('menu')}})
