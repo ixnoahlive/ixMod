@@ -3,6 +3,6 @@
   "creator": "ixNoah",
   "description": "ixMod does it all",
   "entry": "index.js",
-  "version":"1.0.0",
+  "version":"1.1.0",
   "requires": ["Vigilance"]
 }
