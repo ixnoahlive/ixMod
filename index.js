@@ -1,12 +1,11 @@
-import Settings from "./config";
-import U from './util';
+import Settings from "./resources/config";
+import U from './resources/util';
 import 'Vigilance'
 
 // to the chattriggers review team
 // i am so sorry
 
 let HouseInfo = {
-	owner:'Steve',
 	guests:0,
 	cookies:0
 }
@@ -17,11 +16,9 @@ let x = new Text(``, 5, 5).setShadow(true)
 ///////////////
 
 register('renderOverlay', () => {
-	const lines = Scoreboard.getLines()
-	const sblines = TabList.getFooter().split('\n')
 	if (U.inHousing()) {
-		if (Settings.gui_houseinfo==true && HouseInfo.owner) {
-			x.setString(`&e&lHOUSE INFO\nHouse Owner: &b${HouseInfo.owner}\n&fGuests: &a${U.commafy(HouseInfo.guests)}\n&fCookies: &6${U.commafy(HouseInfo.cookies)}`)
+		if (Settings.gui_houseinfo==true) {
+			x.setString(`&e&lHOUSE INFO\n&fGuests: &a${U.commafy(HouseInfo.guests)}\n&fCookies: &6${U.commafy(HouseInfo.cookies)}`)
 			x.draw()
 		}
 	}	
@@ -48,15 +45,13 @@ if (Settings.cmd_unbreakable) {register('command', () => { if (Player.getHeldIte
 ////////////////////
 // STEP REGISTERS //
 ////////////////////
+
 register('step', () => {
-	const lines = Scoreboard.getLines()
-	const sblines = TabList.getFooter().split('\n')
+	const tab = TabList.getFooter().split('\n')
 		if (U.inHousing()) {
-			if (Settings.gui_houseinfo==true && sblines) {
-				HouseInfo.owner = sblines[1].split(' ')
-    			HouseInfo.owner = HouseInfo.owner[HouseInfo.owner.length-1].replace(/§([a-z]|[0-9])/g, '')
-				HouseInfo.guests = parseInt(sblines[sblines.length-3].replace(/§([a-z]|[0-9])/g, '').replace(/!([0-9])/, '').replace(/,/, '').split(' | ')[0].replace('Guests: ', ''))
-				HouseInfo.cookies = parseInt(sblines[sblines.length-3].replace(/§([a-z]|[0-9])/g, '').replace(/!([0-9])/, '').replace(/,/, '').split(' | ')[1].replace('Cookies: ', ''))
+			if (Settings.gui_houseinfo==true && tab) {
+				HouseInfo.guests = parseInt(tab[tab.length-3].replace(/§([a-z]|[0-9])/g, '').replace(/!([0-9])/, '').replace(/,/, '').split(' | ')[0].replace('Guests: ', ''))
+				HouseInfo.cookies = parseInt(tab[tab.length-3].replace(/§([a-z]|[0-9])/g, '').replace(/!([0-9])/, '').replace(/,/, '').split(' | ')[1].replace('Cookies: ', ''))
 			}
 		}
 }).setFps(1)
