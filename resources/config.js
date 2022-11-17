@@ -1,8 +1,8 @@
-import { @Vigilant, @SwitchProperty, @CheckboxProperty, @ButtonProperty, @SelectorProperty } from 'Vigilance'; // Works fine, VSCode is a bitch.
+import { @Vigilant, @SwitchProperty, @CheckboxProperty, @ButtonProperty } from 'Vigilance'; // Works fine, VSCode is a bitch.
 
 @Vigilant("ixMod", "ixMod Config", {
     getCategoryComparator: () => (a, b) => {
-        const categories = ['Interface', 'Commands', 'Miscellaneous'];
+        const categories = ['Interface', 'Commands', 'House Tracker', 'Miscellaneous'];
 
         return categories.indexOf(a.name) - categories.indexOf(b.name);
     },
@@ -14,6 +14,7 @@ import { @Vigilant, @SwitchProperty, @CheckboxProperty, @ButtonProperty, @Select
     },
 })
 class Settings {
+    ///////////////////
     //// Interface ////
     @SwitchProperty({
         name: "House Info",
@@ -28,7 +29,7 @@ class Settings {
     })
     gui_actionMsg = false
 
-
+    //////////////////
     //// Commands ////
     @CheckboxProperty({
         name: "/unbreakable",
@@ -38,7 +39,17 @@ class Settings {
     })
     cmd_unbreakable = true
 
+    ///////////////////////
+    //// House Tracker ////
+    @SwitchProperty({
+        name: "Enable Tracking",
+        description: "Logs your House's guest & cookie counter to a file every 5 minutes. Good for making charts & collecting info on your house while AFK.",
+        category: "House Tracker",
+    })
+    tracker_enabled = false
+    
 
+    ///////////////////////
     //// Miscellaneous ////
     @SwitchProperty({
         name: "Developer Mode",

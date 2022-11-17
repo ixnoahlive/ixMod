@@ -13,9 +13,19 @@
 ixMod is a module for ChatTriggers that provides a better Hypixel Housing experience that isn't all too invasive.
 
 ## 💡 Usage
-Install into `.minecraft/config/ChatTriggers/modules` and reload your modules.
+Install into `.minecraft/config/ChatTriggers/modules/ixMod` and reload your modules.
 
 Type `/ixmod` to configure the mod!
+
+## 📂 Where do i find \_\_\_\_\_?
+<details>
+<summary>Tracked Info</summary>
+You can find the info from the Housing Tracker setting in <code>ixMod/tracker/data.json</code>
+</details>
+<details>
+<summary>Config File</summary>
+You can find your config file in <code>ixMod/config.toml</code>
+</details>
 
 ## 🎨 Contributing
 Please check the [issues](https://github.com/noahthenerd/ixmod/issues) page for things that need fixing/adding!

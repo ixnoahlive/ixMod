@@ -9,7 +9,7 @@ let HouseInfo = {
 	guests:0,
 	cookies:0
 }
-let x = new Text(``, 5, 5).setShadow(true)
+let HouseInfo_Text = new Text(``, 5, 5).setShadow(true)
 
 ///////////////
 // RENDERING //
@@ -18,8 +18,9 @@ let x = new Text(``, 5, 5).setShadow(true)
 register('renderOverlay', () => {
 	if (U.inHousing()) {
 		if (Settings.gui_houseinfo==true) {
-			x.setString(`&e&lHOUSE INFO\n&fGuests: &a${U.commafy(HouseInfo.guests)}\n&fCookies: &6${U.commafy(HouseInfo.cookies)}`)
-			x.draw()
+			
+			HouseInfo_Text.setString(`&e&lHOUSE INFO\n&fGuests: &a${U.commafy(HouseInfo.guests)}\n&fCookies: &6${U.commafy(HouseInfo.cookies)}`)
+			HouseInfo_Text.draw()
 		}
 	}	
 })
@@ -55,3 +56,7 @@ register('step', () => {
 			}
 		}
 }).setFps(1)
+
+register('step', () => {
+	
+}).setDelay(300)
