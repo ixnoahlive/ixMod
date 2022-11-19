@@ -53,6 +53,7 @@ if (Settings.cmd_unbreakable) {register('command', () => { if (Player.getHeldIte
 ////////////////////
 
 register('step', () => {
+	if (TabList.getFooter()==null) return
 	const tab = TabList.getFooter().split('\n')
 		if (U.inHousing()) {
 			if (Settings.gui_houseinfo==true && tab) {
@@ -76,4 +77,4 @@ register('step', () => {
 	}
 	x.push(y)
 	FileLib.write('ixMod', 'housetracker/data.json', JSON.stringify(x), true)
-}).setDelay(10)
+}).setDelay(300)
