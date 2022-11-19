@@ -4,8 +4,6 @@
     <a href="https://www.chattriggers.com/modules/v/Housetils">ChatTriggers</a>
     •
     <a href="https://github.com/NoahTheNerd/ixMod/issues">Bugs & Feedback</a>
-    •
-    <a href="./LICENSE">License</a>
 </div>
 <br>
 
