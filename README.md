@@ -13,6 +13,8 @@ ixMod is a module for ChatTriggers that provides a better Hypixel Housing experi
 ## 💡 Usage
 Install into `.minecraft/config/ChatTriggers/modules/ixMod` and reload your modules.
 
+<span style="color: #f2687f"><b>THE FILE MUST BE NAMED "ixMod" WITH THE EXACT CAPS, OR IT WILL NOT WORK.</b></span>
+
 Type `/ixmod` to configure the mod!
 
 ## 📂 Where do i find \_\_\_\_\_?
