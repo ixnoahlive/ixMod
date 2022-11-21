@@ -15,6 +15,8 @@ Install into `.minecraft/config/ChatTriggers/modules/ixMod` and reload your modu
 
 **❗ THE FILE MUST BE NAMED "ixMod" WITH THE EXACT CAPS, OR IT WILL NOT WORK.**
 
+Alternatively, type `/ct import ixMod`
+
 Type `/ixmod` to configure the mod!
 
 ## 📂 Where do i find \_\_\_\_\_?
