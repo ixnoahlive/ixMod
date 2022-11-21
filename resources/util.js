@@ -15,7 +15,7 @@ class U {
         }
         this.inHousing = () => {
             if (Scoreboard.getLines()[Scoreboard.getLines().length-1]==undefined) return false
-            return Scoreboard.getTitle().match('HOUSING') && Scoreboard.getLines()[Scoreboard.getLines().length-1].toString().toLowerCase().match('m')
+            return Scoreboard.getTitle().includes('HOUSING') && Scoreboard.getLines()[Scoreboard.getLines().length-1].toString().toLowerCase().includes('m')
         }
         this.log = (str) => {
             if (Settings.dev) {

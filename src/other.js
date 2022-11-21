@@ -3,7 +3,7 @@ import Settings from '../resources/config'
 import request from 'requestV2';
 
 register('chat', (message, event) => {
-	if (U.inHousing() && Settings.gui_actionMsg) {
+	if (Settings.gui_actionMsg && U.inHousing()) {
 		ChatLib.chat(message)
 		cancel(event)
 	}
