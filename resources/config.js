@@ -1,4 +1,4 @@
-import { @Vigilant, @SwitchProperty, @CheckboxProperty, @ButtonProperty } from 'Vigilance'; // Works fine, VSCode is a bitch.
+import { @Vigilant, @SwitchProperty, @CheckboxProperty, @ButtonProperty, @PercentSliderProperty } from 'Vigilance'; // Works fine, VSCode is a bitch.
 const Manual = new TextComponent('&b[&9&nClick here to view the House Tracker Manual!&b]').setClick('open_url', 'https://github.com/NoahTheNerd/ixMod/tree/main/housetracker/README.md')
 
 @Vigilant("ixMod", "ixMod Config", {
@@ -31,6 +31,21 @@ class Settings {
         subcategory: "House Info"
     })
     gui_houseinfocompact = false
+    @PercentSliderProperty({
+        name: 'House Info Pos X',
+        description: 'Position of House Info on X Axis',
+        category: 'Interface',
+        subcategory: 'House Info',
+    })
+    gui_houseinfoX = 0.01;
+    @PercentSliderProperty({
+        name: 'House Info Pos Y',
+        description: 'Position of House Info on Y Axis',
+        category: 'Interface',
+        subcategory: 'House Info',
+    })
+    gui_houseinfoY = 0.01;
+
     @SwitchProperty({
         name: 'Hide Action Asterisk',
         description: 'Disables the asterisk in messages sent by actions',
@@ -45,9 +60,25 @@ class Settings {
         name: "/unbreakable",
         description: "Makes your held item unbreakable",
         category: "Commands",
-        subcategory: "Slash Commands"
     })
     cmd_unbreakable = true
+    @CheckboxProperty({
+        name: "/unicode",
+        description: "Shows a bunch of unicode symbols you can copy\nAlias: /uni",
+        category: "Commands",
+    })
+    cmd_unicode = true
+
+    @ButtonProperty({
+        name: "Reload ChatTriggers",
+        description: "This is required to make the command changes take effect!",
+        placeholder: "Reload ChatTriggers",
+        category: "Commands"
+    })
+    reloadCT() {
+        ChatLib.command('chattriggers load')
+        Client.currentGui.close()
+    }
 
     ///////////////////////
     //// House Tracker ////

@@ -3,6 +3,6 @@
   "creator": "ixNoah",
   "description": "ChatTriggers module providing utilities for Hypixel Housing", 
   "entry": "index.js",
-  "version":"1.1.0",
-  "requires": ["Vigilance"]
+  "version":"1.1.1",
+  "requires": ["Vigilance","requestV2"]
 }
