@@ -13,14 +13,42 @@ class U {
         this.commafy = (x) => {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
-        this.inHousing = () => {
+        this.appendFile = (file, string) => {
+            let x = JSON.parse(FileLib.read('ixMod', file))
+            if (x.includes(string)) return 400
+            if (!Array.isArray(x)) x = [] // Reset it idgaf you fucked with it probably
+            x.push(string)
+            FileLib.write('ixMod', file, JSON.stringify(x), true)
+            return 200
+        }
+        this.popFile = (file, prop, val) => {
+            let x = JSON.parse(FileLib.read('ixMod', file))
+            console.log(1)
+            x.forEach(y => {
+                console.log(2)
+                if (y[prop] == val) {
+                    console.log(3)
+                    if (x.indexOf(y) < 0) return 400
+                    console.log(4)
+                    x.splice(x.indexOf(y), 1)
+                }
+            })
+            FileLib.write('ixMod', file, JSON.stringify(x), true)
+            return 200
+        }
+        this.inHousing = (lobbyAllowed) => {
             if (Scoreboard.getLines()[Scoreboard.getLines().length-1]==undefined) return false
-            return Scoreboard.getTitle().includes('HOUSING') && Scoreboard.getLines()[Scoreboard.getLines().length-1].toString().toLowerCase().includes('m')
+            if (!lobbyAllowed) return Scoreboard.getTitle().includes('HOUSING') && Scoreboard.getLines()[Scoreboard.getLines().length-1].toString().toLowerCase().includes('m')
+            if (lobbyAllowed) return Scoreboard.getTitle().includes('HOUSING')
+            
         }
         this.log = (str) => {
             if (Settings.dev) {
                 console.log(str)
             }
+        }
+        this.addStr = (str, index, stringToAdd) => {
+            return str.substring(0, index) + stringToAdd + str.substring(index, str.length);
         }
         this.isCreative = () => {
             return Player.asPlayerMP().player.field_71075_bZ.field_75098_d

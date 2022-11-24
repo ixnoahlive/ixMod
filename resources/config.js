@@ -46,13 +46,27 @@ class Settings {
     })
     gui_houseinfoY = 0.01;
 
+
+    @SwitchProperty({
+        name:"Coordinate Actionbar",
+        description: 'Shows coordinates above hotbar with all the limits (Only supports 101x101)',
+        category:"Interface"
+    })
+    gui_xyzhotbar = false
+
     @SwitchProperty({
         name: 'Hide Action Asterisk',
         description: 'Disables the asterisk in messages sent by actions',
         category: 'Interface',
-        subcategory: "Actions"
     })
     gui_actionMsg = false
+
+    @SwitchProperty({
+        name: 'Creative Tabs',
+        description: 'Adds a Creative Tab for Housing Items (Restart required)',
+        category: 'Interface'
+    })
+    gui_creativeTabs = false
 
     //////////////////
     //// Commands ////
@@ -61,13 +75,25 @@ class Settings {
         description: "Makes your held item unbreakable",
         category: "Commands",
     })
-    cmd_unbreakable = true
+    cmd_unbreakable = false
     @CheckboxProperty({
         name: "/unicode",
         description: "Shows a bunch of unicode symbols you can copy\nAlias: /uni",
         category: "Commands",
     })
     cmd_unicode = true
+    @CheckboxProperty({
+        name: "/stats",
+        description: "Shows your stats if you have permissions to view them",
+        category: "Commands",
+    })
+    cmd_stats = true
+    @CheckboxProperty({
+        name: "/bookmark <player?>",
+        description: "Bookmark a players house, type /bookmark with no argument to view your bookmarks.",
+        category: "Commands",
+    })
+    cmd_bookmark = true
 
     @ButtonProperty({
         name: "Reload ChatTriggers",
