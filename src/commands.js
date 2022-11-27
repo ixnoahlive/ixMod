@@ -16,9 +16,8 @@ if (Settings.cmd_unbreakable) {register('command', () => { if (Player.getHeldIte
 	if (!U.isCreative()) return ChatLib.chat('&cYou need to be in Creative mode for this command!')
 	U.setHeldItemTag('Unbreakable', 1)
 }}).setCommandName('unbreakable')} 
+if (Settings.misc_dev) register('command', () => {console.log(Player.getHeldItem().getRawNBT())}).setName('yoink')
 
-
-// Bookmark
 
 // Ive been working on this hell all day put me out of my misery
 if (Settings.cmd_bookmark) register('command', (player, target) => {
@@ -39,6 +38,7 @@ if (Settings.cmd_bookmark) register('command', (player, target) => {
 		let BookmarkMsg = []
 		if (Bookmarks.length<1) return ChatLib.chat('&cYou have no bookmarks! Type /bookmark <player> to bookmark a house!')
 		ChatLib.chat(`&9&m${'-'.repeat(32)}`)
+		ChatLib.chat('&6            &6  Your Bookmarks')
 		Bookmarks.forEach(v => {
 			let message = new Message()
 			message.addTextComponent(new TextComponent('&c[X] ').setClick('run_command', `/bookmark -r ${v.id}`).setHover('show_text',`&cRemove bookmark "${v.name}"`))
@@ -49,5 +49,29 @@ if (Settings.cmd_bookmark) register('command', (player, target) => {
 	} else if (!player && U.inHousing(true)==false) {
 		ChatLib.chat('&cYou need to be in Housing or a Housing lobby to use this command!')
 	}
-}).setName('bookmark')
-register('command', () => {console.log(Player.getHeldItem().getRawNBT())}).setName('yoink')
+}).setName('bookmark').setAliases('bm','book','bookmarks')
+
+/* This feature needs some polish, will be available in 1.4 mostlikely.
+if (Settings.cmd_ptoverride) {
+	register('command', (...args) => {
+		if (!args) return
+		args.forEach(v => {
+			v.replace('white_stained_glass','95')
+			.replace('orange_stained_glass','95:1')
+			.replace('magenta_stained_glass','95:2')
+			.replace('light_blue_stained_glass','95:3')
+			.replace('yellow_stained_glass','95:4')
+			.replace('lime_stained_glass','95:5')
+			.replace('pink_stained_glass','95:6')
+			.replace('gray_stained_glass','95:7')
+			.replace('light_gray_stained_glass','95:8')
+			.replace('cyan_stained_glass','95:9')
+			.replace('purple_stained_glass','95:10')
+			.replace('blue_stained_glass','95:11')
+			.replace('brown_stained_glass','95:12')
+			.replace('green_stained_glass','95:13')
+			.replace('red_stained_glass','95:14')
+			.replace('black_stained_glass','95:15')
+		})
+	}).setName('fill').setAliases(['/fill'])
+}*/

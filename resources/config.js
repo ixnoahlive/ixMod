@@ -94,6 +94,12 @@ class Settings {
         category: "Commands",
     })
     cmd_bookmark = true
+    /*@CheckboxProperty({
+        name: "Pro Tools Override",
+        description: "Override Pro Tool commands to allow for newer block ids, such as light_blue_stained_glass instead of stained_glass:3",
+        category: "Commands"
+    })
+    cmd_ptoverride = false*/
 
     @ButtonProperty({
         name: "Reload ChatTriggers",
@@ -102,7 +108,7 @@ class Settings {
         category: "Commands"
     })
     reloadCT() {
-        ChatLib.command('chattriggers load')
+        ChatLib.command('/chattriggers load')
         Client.currentGui.close()
     }
 
@@ -149,7 +155,7 @@ class Settings {
         subcategory:'Developer'
     })
     openConsole() {
-        ChatLib.command('ct console js', true)
+        ChatLib.command('/chattriggers console js', true)
     }
     @SwitchProperty({
         name: "rat!!!! ogm!!!",
