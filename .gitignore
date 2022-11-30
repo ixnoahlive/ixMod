@@ -6,3 +6,4 @@ config.toml
 housetracker/data.json
 housetracker/full/*
 resources/bookmark.json
+changes.md

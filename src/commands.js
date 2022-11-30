@@ -1,55 +1,42 @@
 import Settings from '../resources/config'
 import U from '../resources/util'
-import request from 'requestV2';
 
-// Unicode Command setup
+import './cmds/bookmark' // Command is flooding this file and makes it a bit tedious to focus on other things
+
 const UniObj = JSON.parse(FileLib.read('ixMod', 'resources/unicode.json'))
 const UniTexts = []
-Object.keys(UniObj).forEach(v => {UniTexts.push(new TextComponent(`&e&l${v}:&r ${UniObj[v]}`).setClick('run_command', `/chattriggers copy ${UniObj[v]}`).setHover('show_text', `&fClick to copy all symbols!`))})
+Object.keys(UniObj).forEach(v => {
+	v2 = UniObj[v].split('')
+	msg = new Message(`&e&l${v}: &f`)
+	v2.forEach((w) => {
+		msg.addTextComponent(new TextComponent(w).setClick('run_command', `/chattriggers copy ${w}`).setHover('show_text', `&aCopy symbol &e"${w}"`))
+	})
+	UniTexts.push(msg)
+})
 
 register('command', () => Settings.openGUI()).setName('ixmod').setAliases(["ix","ixm"])
 register('command', () => {FileLib.write('ixMod', 'housetracker/data.json', "[]", true);ChatLib.chat('&aResetted housetracker/data.json!')}).setName('resethousingtracker')
 
+if (Settings.misc_dev) register('command', () => {console.log(Player.getHeldItem().getRawNBT())}).setName('yoink')
 if (Settings.cmd_stats) register('command', () => {if (U.inHousing()) { ChatLib.command(`viewstats ${Player.getName()}`) }}).setName('mystats')
 if (Settings.cmd_unicode) register('command', () => {ChatLib.chat(`&9&m${'-'.repeat(52)}`);UniTexts.forEach(txt => ChatLib.chat(txt));ChatLib.chat(`&9&m${'-'.repeat(52)}`)}).setName('unicode').setAliases(['uni']) 
+
 if (Settings.cmd_unbreakable) {register('command', () => { if (Player.getHeldItem()) { 
 	if (!U.isCreative()) return ChatLib.chat('&cYou need to be in Creative mode for this command!')
-	U.setHeldItemTag('Unbreakable', 1)
+    if ((!Player.getHeldItem().getNBT().getTag('tag')?.getByte('Unbreakable'))) {
+        if (Player.getHeldItem().getNBT().getTag('tag')) {
+            Player.getHeldItem().getItemNBT().getTag('tag').setByte('Unbreakable', 1)
+        } else {
+            U.setHeldItemTag('Unbreakable', 1);
+        }
+		ChatLib.chat('&aYour held item is now unbreakable!')
+    } else {
+        if (Player.getHeldItem().getNBT().getTag('tag')) {
+            Player.getHeldItem().getItemNBT().getTag('tag').setByte('Unbreakable', 0)
+			ChatLib.chat('&cYour held item is no longer unbreakable!')
+        }
+    } // This is 100% my code it just looks coincidentally similar to the code in housingeditor
 }}).setCommandName('unbreakable')} 
-if (Settings.misc_dev) register('command', () => {console.log(Player.getHeldItem().getRawNBT())}).setName('yoink')
-
-
-// Ive been working on this hell all day put me out of my misery
-if (Settings.cmd_bookmark) register('command', (player, target) => {
-	if (player && player.startsWith('-r')) { // this is bullshit but it doesn't work otherwise
-		let v = U.popFile('resources/bookmark.json', 'id', target)
-		if (v==200) {ChatLib.chat('&cSuccessfully removed this bookmark!')} else {ChatLib.chat('&cSomething went wrong trying to perform this action!')}
-		return;
-	}
-	if (player && player.match(/^[a-zA-Z0-9_]{2,16}$/mg)) {
-		request(`https://api.mojang.com/users/profiles/minecraft/${player}`)
-		.then((stuff) => {
-			let v = U.appendFile('resources/bookmark.json', {name: JSON.parse(stuff).name, id: JSON.parse(stuff).id})
-			if (v==400) return ChatLib.chat('&aThis house is already bookmarked!')
-			if (v==200) return ChatLib.chat('&aSuccessfully bookmarked this house!')	
-		})
-	} else if (!player && U.inHousing(true)) {
-		const Bookmarks = JSON.parse(FileLib.read('ixMod', 'resources/bookmark.json'))
-		let BookmarkMsg = []
-		if (Bookmarks.length<1) return ChatLib.chat('&cYou have no bookmarks! Type /bookmark <player> to bookmark a house!')
-		ChatLib.chat(`&9&m${'-'.repeat(32)}`)
-		ChatLib.chat('&6            &6  Your Bookmarks')
-		Bookmarks.forEach(v => {
-			let message = new Message()
-			message.addTextComponent(new TextComponent('&c[X] ').setClick('run_command', `/bookmark -r ${v.id}`).setHover('show_text',`&cRemove bookmark "${v.name}"`))
-			message.addTextComponent(new TextComponent(`&8|&e ${v.name}`).setHover('show_text',`&aVisit bookmark "${v.name}"`).setClick('run_command', `/visit ${U.addStr(U.addStr(U.addStr(U.addStr(v.id, 8, '-'), 13, '-'), 18, '-'), 23, '-')}`))
-			ChatLib.chat(message)
-		})
-		ChatLib.chat(`&9&m${'-'.repeat(32)}`)
-	} else if (!player && U.inHousing(true)==false) {
-		ChatLib.chat('&cYou need to be in Housing or a Housing lobby to use this command!')
-	}
-}).setName('bookmark').setAliases('bm','book','bookmarks')
 
 /* This feature needs some polish, will be available in 1.4 mostlikely.
 if (Settings.cmd_ptoverride) {
