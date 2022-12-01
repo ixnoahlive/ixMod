@@ -7,26 +7,50 @@ const C10PacketCreativeInventoryAction = Java.type("net.minecraft.network.play.c
 
 class U {
     constructor() {
-        this.chat = (str) => {
-            return ChatLib.chat(`&9[&7ixMod&9] &f${str}`)
+        /**
+         * Returns a ixMod message, good to provide clarity when a message may not obviously be from ixMod.
+         * @param {string} message The message to send
+         * @returns {Message} The message sent
+         */
+        this.chat = (message) => {
+            return ChatLib.chat(`&9[&7ixMod&9] &f${message}`)
         }
-        this.commafy = (x) => {
-            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        /**
+         * Adds commas to a number
+         * Example: 1000000 -> 1,000,000
+         * @param {number} number The number to commafy
+         * @returns {string} Commafied number
+         */
+        this.commafy = (number) => {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
-        this.appendFile = (file, string) => {
+        /**
+         * Appends to an array which is written to a JSON file
+         * @param {string} file File path
+         * @param {*} item The item to add
+         * @returns {number} Status code, 200 = success, 400 = duplicate, none = something went wrong
+         */
+        this.appendFile = (file, item) => {
             let x = JSON.parse(FileLib.read('ixMod', file))
-            if (x.includes(string)) return 400
+            if (x.includes(item)) return 400
             if (!Array.isArray(x)) x = [] // Reset it idgaf you fucked with it probably
-            x.push(string)
+            x.push(item)
             FileLib.write('ixMod', file, JSON.stringify(x), true)
             return 200
         }
-        this.popFile = (file, prop, val) => {
+        /**
+         * Pops something from an array string in a file then writes it back.
+         * @param {string} file The file to pop something from
+         * @param {*} property The property to target
+         * @param {*} value The value to meet  
+         * @returns {number} Status code, 200 = success, 400 = Does not exist, none = something went wrong
+         */
+        this.popFile = (file, property, value) => {
             let x = JSON.parse(FileLib.read('ixMod', file))
             console.log(1)
             x.forEach(y => {
                 console.log(2)
-                if (y[prop] == val) {
+                if (y[property] == value) {
                     console.log(3)
                     if (x.indexOf(y) < 0) return 400
                     console.log(4)
@@ -36,23 +60,49 @@ class U {
             FileLib.write('ixMod', file, JSON.stringify(x), true)
             return 200
         }
+        /**
+         * Check if the player is in Housing
+         * @param {boolean} lobbyAllowed If true the lobby will return true aswell 
+         * @returns {boolean} If the player is in Housing
+         */
         this.inHousing = (lobbyAllowed) => {
             if (Scoreboard.getLines()[Scoreboard.getLines().length-1]==undefined) return false
             if (!lobbyAllowed) return Scoreboard.getTitle().includes('HOUSING') && Scoreboard.getLines()[Scoreboard.getLines().length-1].toString().toLowerCase().includes('m')
             if (lobbyAllowed) return Scoreboard.getTitle().includes('HOUSING')
             
         }
-        this.log = (str) => {
+        /**
+         * Used instead of console.log for things that should stay after debugging.
+         * Only visible when developer mode is on.
+         * @param {*} args Thing to log to console
+         */
+        this.log = (string) => {
             if (Settings.dev) {
-                console.log(str)
+                console.log(string)
             }
         }
-        this.addStr = (str, index, stringToAdd) => {
-            return str.substring(0, index) + stringToAdd + str.substring(index, str.length);
+        /**
+         * Adds a string into another string at a certain index
+         * @param {string} string Target
+         * @param {number} index Index to insert new string
+         * @param {string} stringToAdd The string to insert
+         * @returns {string} Result of this insertion
+         */
+        this.addStr = (string, index, stringToAdd) => {
+            return string.substring(0, index) + stringToAdd + string.substring(index, string.length);
         }
+        /**
+         * Check if the player is in Creative mode
+         * @returns {boolean}
+         */
         this.isCreative = () => {
             return Player.asPlayerMP().player.field_71075_bZ.field_75098_d
         }
+        /**
+         * FIXME: Gonna be honest i have no fucking clue what this does 
+         * @param {} itemStack 
+         * @param {*} slot 
+         */
         this.loadItemstack = (itemStack, slot) => {
             Client.sendPacket(
                 new C10PacketCreativeInventoryAction(
@@ -61,6 +111,11 @@ class U {
                 )
             );
         }
+        /**
+         * Creates a new item from NBT
+         * @param {string} nbtStr NBT string to turn into item
+         * @returns {Item} The created item
+         */
         this.getItemFromNBT = (nbtStr) => {
             let nbt = net.minecraft.nbt.JsonToNBT.func_180713_a(nbtStr); // Get MC NBT object from string
             let count = nbt.func_74771_c('Count') // get byte
@@ -75,6 +130,11 @@ class U {
             item = new Item(item); // convert back to ct object
             return item;
         }
+        /**
+         * Creates a tag compound for the held item and adds a new value
+         * @param {*} key Key of new value
+         * @param {*} value Value of the new value
+         */
         this.setHeldItemTag = (key, value) => {
             new_nbt = new NBTTagCompound();
             new_nbt.func_74774_a(key, value)
