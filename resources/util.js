@@ -32,6 +32,7 @@ class U {
          */
         this.appendFile = (file, item) => {
             let x = JSON.parse(FileLib.read('ixMod', file))
+            if (x==null) return 400
             if (x.includes(item)) return 400
             if (!Array.isArray(x)) x = [] // Reset it idgaf you fucked with it probably
             x.push(item)
@@ -70,6 +71,14 @@ class U {
             if (!lobbyAllowed) return Scoreboard.getTitle().includes('HOUSING') && Scoreboard.getLines()[Scoreboard.getLines().length-1].toString().toLowerCase().includes('m')
             if (lobbyAllowed) return Scoreboard.getTitle().includes('HOUSING')
             
+        }
+        /**
+         * Check if the player in Housing Lobby
+         * @returns {boolean} If the player is in Housing Lobby
+         */
+        this.inHousingLobby = () => {
+            if (Scoreboard.getLines()[Scoreboard.getLines().length-1]==undefined) return false
+            return Scoreboard.getTitle().includes('HOUSING') && !Scoreboard.getLines()[Scoreboard.getLines().length-1].toString().toLowerCase().includes('m')
         }
         /**
          * Used instead of console.log for things that should stay after debugging.

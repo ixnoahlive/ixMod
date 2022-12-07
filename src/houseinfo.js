@@ -38,6 +38,7 @@ register('step', () => {
 	const tab = TabList.getFooter().split('\n')
 		if (U.inHousing()) {
 			if (Settings.gui_houseinfo==true && tab) {
+				if (tab[tab.length-3]==undefined) { return }
 				HouseInfo.guests = parseInt(tab[tab.length-3].replace(/§([a-z]|[0-9])/g, '').replace(/!([0-9])/, '').replace(/,/, '').split(' | ')[0].replace('Guests: ', ''))
 				HouseInfo.cookies = parseInt(tab[tab.length-3].replace(/§([a-z]|[0-9])/g, '').replace(/!([0-9])/, '').replace(/,/, '').split(' | ')[1].replace('Cookies: ', ''))
 			}

@@ -1,4 +1,4 @@
-import { @Vigilant, @SwitchProperty, @CheckboxProperty, @ButtonProperty, @PercentSliderProperty } from 'Vigilance'; // Works fine, VSCode is a bitch.
+import { @Vigilant, @SwitchProperty, @CheckboxProperty, @ButtonProperty, @PercentSliderProperty, @TextProperty } from 'Vigilance'; // Works fine, VSCode is a bitch.
 const Manual = new TextComponent('&b[&9&nClick here to view the House Tracker Manual!&b]').setClick('open_url', 'https://github.com/NoahTheNerd/ixMod/tree/main/housetracker/README.md')
 
 @Vigilant("ixMod", "ixMod Config", {
@@ -6,15 +6,19 @@ const Manual = new TextComponent('&b[&9&nClick here to view the House Tracker Ma
         const categories = ['Interface', 'Commands', 'House Tracker', 'Miscellaneous'];
 
         return categories.indexOf(a.name) - categories.indexOf(b.name);
-    },
-    getSubcategoryComparator: () => (a, b) => {
-        const subcategories = ["Actions","House Info","Slash Commands", "Developer","Definitely Real Options"];
-
-        return subcategories.indexOf(a.getValue()[0].attributesExt.subcategory) -
-            subcategories.indexOf(b.getValue()[0].attributesExt.subcategory);
-    },
+    }
 })
 class Settings {
+    /////////////////
+    //// General ////
+    /*@TextProperty({
+        name: "API Key",
+        description: "Used to communicate with the Hypixel API. Generate with /api new! Only required for a few commands.",
+        category: "General",
+        placeholder: "API Key"
+    })
+    key = "";
+    */
     ///////////////////
     //// Interface ////
     @SwitchProperty({
@@ -84,16 +88,28 @@ class Settings {
     cmd_unicode = true
     @CheckboxProperty({
         name: "/stats",
-        description: "Shows your stats if you have permissions to view them",
+        description: "Shows your stats if you have permissions to view them\nAlias: /mystats",
         category: "Commands",
     })
     cmd_stats = true
     @CheckboxProperty({
         name: "/bookmark <player?>",
-        description: "Bookmark a players house, type /bookmark with no argument to view your bookmarks.",
+        description: "Bookmark a players house, type /bookmark with no argument to view your bookmarks\nAliasses: /bm, /book, /bookmarks",
         category: "Commands",
     })
     cmd_bookmark = true
+    @CheckboxProperty({
+        name: "/settexture <id>",
+        description: "Sets an item's texture for Texture Packs that support CAL\nNote: If the item's name is changed, you must set the ID again\nAlias: /st",
+        category: "Commands"
+    })
+    cmd_3rdparty_cal = false
+    @SwitchProperty({
+        name: "Extra Aliasses",
+        description: "Adds aliasses for more commands like /housing invite or /visit",
+        category: "Commands"
+    })
+    cmd_alias = true
     /*@CheckboxProperty({
         name: "Pro Tools Override",
         description: "Override Pro Tool commands to allow for newer block ids, such as light_blue_stained_glass instead of stained_glass:3",
@@ -108,7 +124,7 @@ class Settings {
         category: "Commands"
     })
     reloadCT() {
-        ChatLib.command('/chattriggers load')
+        ChatLib.command('chattriggers load')
         Client.currentGui.close()
     }
 
@@ -161,7 +177,7 @@ class Settings {
         name: "rat!!!! ogm!!!",
         description: "Keep on plz\n&8(joke option, ixmod is open source! github.com/noahthenerd/ixmod)",
         category: "Miscellaneous",
-        subcategory: 'Definitely Real Options'
+        subcategory: 'ignore me!!'
     })
     jokeoption = true
 

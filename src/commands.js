@@ -38,6 +38,32 @@ if (Settings.cmd_unbreakable) {register('command', () => { if (Player.getHeldIte
     } // This is 100% my code it just looks coincidentally similar to the code in housingeditor
 }}).setCommandName('unbreakable')} 
 
+if (Settings.cmd_alias) {
+	register('command', (name) => ChatLib.command(`housing invite ${name}`)).setName('ixmod:invite').setAliases(['invite','inv'])
+	register('command', (name) => ChatLib.command(`visit ${name}`)).setName('ixmod:visit').setAliases(['vis','vi'])
+	register('command', () => ChatLib.command(`housing logs`)).setName('ixmod:logs').setAliases(['logs','log'])
+	register('command', (name) => ChatLib.command(`viewstats ${name}`)).setName('ixmod:stats').setAliases(['st','stats','stat'])
+	register('command', () => ChatLib.command(`viewglobalstats`)).setName('ixmod:globalstats').setAliases(['gst','gstats','gstat'])
+	register('command', (name) => ChatLib.command(`housing ban ${name}`)).setName('ixmod:ban').setAliases(['hban','b'])
+	register('command', (name) => ChatLib.command(`housing mute ${name}`)).setName('ixmod:mute').setAliases(['hmute','m'])
+	register('command', (name) => ChatLib.command(`housing kick ${name}`)).setName('ixmod:kick').setAliases(['hkick','k'])
+}
+
+register('command', () => {
+	ChatLib.chat('&9&lIXMOD')
+	ChatLib.chat('&bLead Developer: &fixNoah\n&bwith help from: &fArisings\n&bUseful Libraries: &fCreativeTabs, requestV2, Vigilance\n\n&bThank you to &fthe ChatTriggers server, Housing Community and HousingEditor!')
+}).setName('ixmod:credits')
+
+if (Settings.cmd_3rdparty_cal) register('command', (id) => {
+	if (!U.inHousing(false) && !U.isCreative()) return ChatLib.chat('&cYou must be in Housing and be in Creative mode!')
+	if(!id | id<1 | id>32767 )return ChatLib.chat('&cProvide a valid id!');
+	if (id.length==2) { id = U.addStr(id.toString(), 0, '0') }
+	if (id.length==1) { id = U.addStr(U.addStr(id.toString(), 0, '0'), 0, '0') }
+	ChatLib.chat(`&aSet held item to &eTexture ${id}&a!`)
+	Player.getHeldItem().setName(Player.getHeldItem().getName().replace(/§[0-9]§[0-9]§[0-9]/, ''))
+	Player.getHeldItem().setName(Player.getHeldItem().getName()+`&${id[0]}&${id[1]}&${id[2]}`)
+}).setName('settexture').setAliases(['st'])
+
 /* This feature needs some polish, will be available in 1.4 mostlikely.
 if (Settings.cmd_ptoverride) {
 	register('command', (...args) => {
