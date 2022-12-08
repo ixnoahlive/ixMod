@@ -5,17 +5,20 @@ import './cmds/bookmark' // Command is flooding this file and makes it a bit ted
 
 const UniObj = JSON.parse(FileLib.read('ixMod', 'resources/unicode.json'))
 const UniTexts = []
-Object.keys(UniObj).forEach(v => {
-	v2 = UniObj[v].split('')
-	msg = new Message(`&e&l${v}: &f`)
-	v2.forEach((w) => {
-		msg.addTextComponent(new TextComponent(w).setClick('run_command', `/chattriggers copy ${w}`).setHover('show_text', `&aCopy symbol &e"${w}"`))
+Object.keys(UniObj).forEach(group => {
+	groupCodes = UniObj[group].split('')
+	groupMessage = new Message(`&e&l${group}: &f`)
+	groupCodes.forEach((code) => {
+		groupMessage.addTextComponent(new TextComponent(code).setClick('run_command', `/chattriggers copy ${code}`).setHover('show_text', `&aCopy symbol &e"${code}"`))
 	})
 	UniTexts.push(msg)
 })
 
 register('command', () => Settings.openGUI()).setName('ixmod').setAliases(["ix","ixm"])
-register('command', () => {FileLib.write('ixMod', 'housetracker/data.json', "[]", true);ChatLib.chat('&aResetted housetracker/data.json!')}).setName('resethousingtracker')
+register('command', () => {
+	FileLib.write('ixMod', 'housetracker/data.json', "[]", true)
+	ChatLib.chat('&aResetted housetracker/data.json!')
+}).setName('resethousingtracker')
 
 if (Settings.misc_dev) register('command', () => {console.log(Player.getHeldItem().getRawNBT())}).setName('yoink')
 if (Settings.cmd_stats) register('command', () => {if (U.inHousing()) { ChatLib.command(`viewstats ${Player.getName()}`) }}).setName('mystats')
@@ -54,14 +57,14 @@ register('command', () => {
 	ChatLib.chat('&bLead Developer: &fixNoah\n&bwith help from: &fArisings\n&bUseful Libraries: &fCreativeTabs, requestV2, Vigilance\n\n&bThank you to &fthe ChatTriggers server, Housing Community and HousingEditor!')
 }).setName('ixmod:credits')
 
-if (Settings.cmd_3rdparty_cal) register('command', (id) => {
+if (Settings.cmd_3rdparty_cal) register('command', (textureId) => {
 	if (!U.inHousing(false) && !U.isCreative()) return ChatLib.chat('&cYou must be in Housing and be in Creative mode!')
-	if(!id | id<1 | id>32767 )return ChatLib.chat('&cProvide a valid id!');
-	if (id.length==2) { id = U.addStr(id.toString(), 0, '0') }
-	if (id.length==1) { id = U.addStr(U.addStr(id.toString(), 0, '0'), 0, '0') }
-	ChatLib.chat(`&aSet held item to &eTexture ${id}&a!`)
+	if(!textureId | textureId<1 | textureId>32767 )return ChatLib.chat('&cProvide a valid id!');
+	if (textureId.length==2) { textureId = U.addStr(textureId.toString(), 0, '0') }
+	if (textureId.length==1) { textureId = U.addStr(U.addStr(textureId.toString(), 0, '0'), 0, '0') }
+	ChatLib.chat(`&aSet held item to &eTexture ${textureId}&a!`)
 	Player.getHeldItem().setName(Player.getHeldItem().getName().replace(/§[0-9]§[0-9]§[0-9]/, ''))
-	Player.getHeldItem().setName(Player.getHeldItem().getName()+`&${id[0]}&${id[1]}&${id[2]}`)
+	Player.getHeldItem().setName(Player.getHeldItem().getName()+`&${textureId[0]}&${textureId[1]}&${textureId[2]}`)
 }).setName('settexture').setAliases(['st'])
 
 /* This feature needs some polish, will be available in 1.4 mostlikely.
