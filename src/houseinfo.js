@@ -51,14 +51,14 @@ register('step', () => {
 	if (!Settings.tracker_enabled) return;
 	if (U.inHousing()==false && U.isCreative()==false) return
 	if (!FileLib.exists('ixMod', 'housetracker/data.json')) FileLib.write('ixMod', 'housetracker/data.json', '[]', true)
-	let x = JSON.parse(FileLib.read('ixMod', 'housetracker/data.json'))
-	if (x.length>288 && Settings.tracker_unlimited==false) return U.chat('Housing Tracker exceeded limit of 288!')
-	let y = {
+	let TrackedData = JSON.parse(FileLib.read('ixMod', 'housetracker/data.json'))
+	if (TrackedData.length>288 && Settings.tracker_unlimited==false) return U.chat('Housing Tracker exceeded limit of 288!')
+	let NewDataEntry = {
 		time: Date.now(),
 		date: new Date().toString(),
 		guests: HouseInfo.guests,
 		cookies: HouseInfo.cookies
 	}
-	x.push(y)
-	FileLib.write('ixMod', 'housetracker/data.json', JSON.stringify(x), true)
+	TrackedData.push(NewDataEntry)
+	FileLib.write('ixMod', 'housetracker/data.json', JSON.stringify(TrackedData), true)
 }).setDelay(300)
