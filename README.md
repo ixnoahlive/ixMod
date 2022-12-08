@@ -28,6 +28,10 @@ You can find the info from the Housing Tracker setting in <code>ixMod/tracker/da
 <summary>Config File</summary>
 You can find your config file in <code>ixMod/config.toml</code>
 </details>
+<details>
+<summary>Bookmarks</summary>
+You can find your bookmarks in <code>ixMod/resources/bookmarks.json</code>
+</details>
 
 ## 🎨 Contributing
 Please check the [issues](https://github.com/noahthenerd/ixmod/issues) page for things that need fixing/adding!
