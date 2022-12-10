@@ -11,7 +11,7 @@ Object.keys(UniObj).forEach(group => {
 	groupCodes.forEach((code) => {
 		groupMessage.addTextComponent(new TextComponent(code).setClick('run_command', `/chattriggers copy ${code}`).setHover('show_text', `&aCopy symbol &e"${code}"`))
 	})
-	UniTexts.push(msg)
+	UniTexts.push(groupMessage)
 })
 
 register('command', () => Settings.openGUI()).setName('ixmod').setAliases(["ix","ixm"])
