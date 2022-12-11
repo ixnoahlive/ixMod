@@ -2,17 +2,26 @@ import Settings from '../resources/config'
 import CreativeTab from 'CreativeTabs'
 import U from '../resources/util'
 
-const HeadsRaw = JSON.parse(FileLib.read('ixMod', 'resources/heads.json')) // Apparently VSCode doesn't like it when i put a 10km wide variable in my file
+const HeadsRaw = JSON.parse(FileLib.read('ixMod', 'resources/creative/heads.json')) // Apparently VSCode doesn't like it when i put a 10km wide variable in my file
 let HeadsStacks = []
 HeadsRaw.forEach((head) => {
     HeadsStacks.push(U.getItemFromNBT(head).getItemStack())
 })
 
-const Heads2Raw = JSON.parse(FileLib.read('ixMod', 'resources/heads2.json'))
+const Heads2Raw = JSON.parse(FileLib.read('ixMod', 'resources/creative/heads2.json'))
 let Heads2Stacks = []
 Heads2Raw.forEach((head) => {
     Heads2Stacks.push(U.getItemFromNBT(head).getItemStack())
 })
+
+const SavedRaw = JSON.parse(FileLib.read('ixMod', 'resources/creative/items.json'))
+let SavedStacks = []
+SavedRaw.forEach((item) => {
+    SavedStacks.push(U.getItemFromNBT(item).getItemStack())
+})
+if (SavedStacks.length==0) {
+    SavedStacks.push(new Item('paper').setName('Use /saveitem to add items!').getItemStack())
+}
 
 const items = [
     U.getItemFromNBT(`{id:"minecraft:end_portal_frame",Count:1b,tag:{overrideMeta:1b,display:{Lore:[0:"§7Place this block in your house",1:"§7to place a Teleport Pad!"],Name:"§aTeleport Pad"},AttributeModifiers:[]},Damage:0s}`).getItemStack(),
@@ -96,4 +105,10 @@ if (Settings.gui_creativeTabs) {
     headtab2.setTitle('Rewards')
     headtab2.setItems(Heads2Stacks)
     headtab2.setIcon(U.getItemFromNBT('{id:"minecraft:skull",Count:1b,tag:{overrideMeta:1b,SkullOwner:{Id:"5cfa4ce0-e1ee-25e8-934f-a59ad85dd508",hypixelPopulated:1b,Properties:{textures:[0:{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2NkM2Q5OWFkMmVlNjNmYmU5ZjEzZGIzYWM2NDdiMjI4NWIyMTdhYjJkZGMzMWY2NGNhYjQ1ZmJiZjdhNCJ9fX0="}]}},display:{Lore:[0:"§7Browse rewards you have unlocked.",1:"§eRewards: §a18/18 §8(100%)",2:"",3:"§eClick to browse!"],Name:"§aRewards"},AttributeModifiers:[]},Damage:3s}').getItemStack())
+
+    const saved = CreativeTab.createTab('ixmod_saved')
+    saved.setTitle('Saved Items')
+    saved.setItems(SavedStacks)
+    saved.setIcon( new Item("bookshelf").getItemStack())
+    saved.setSearchBar(true)
 }

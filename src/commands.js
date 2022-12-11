@@ -2,6 +2,7 @@ import Settings from '../resources/config'
 import U from '../resources/util'
 
 import './cmds/bookmark' // Command is flooding this file and makes it a bit tedious to focus on other things
+import './cmds/saveitem'
 
 const UniObj = JSON.parse(FileLib.read('ixMod', 'resources/unicode.json'))
 const UniTexts = []
@@ -13,6 +14,23 @@ Object.keys(UniObj).forEach(group => {
 	})
 	UniTexts.push(groupMessage)
 })
+if (Settings.cmd_unicode) register('command', () => {
+	ChatLib.chat(`&9&m${'-'.repeat(52)}`)
+	UniTexts.forEach(txt => ChatLib.chat(txt));
+	ChatLib.chat(`&9&m${'-'.repeat(52)}`)
+}).setName('unicode').setAliases(['uni']) 
+
+if (Settings.cmd_alias) {
+	register('command', (name) => ChatLib.command(`housing invite ${name}`)).setName('ixmod:invite').setAliases(['invite','inv'])
+	register('command', (name) => ChatLib.command(`visit ${name}`)).setName('ixmod:visit').setAliases(['vis','vi'])
+	register('command', () => ChatLib.command(`housing logs`)).setName('ixmod:logs').setAliases(['logs','log'])
+	register('command', (name) => ChatLib.command(`viewstats ${name}`)).setName('ixmod:stats').setAliases(['st','stats','stat'])
+	register('command', () => ChatLib.command(`viewglobalstats`)).setName('ixmod:globalstats').setAliases(['gst','gstats','gstat'])
+	register('command', (name) => ChatLib.command(`housing ban ${name}`)).setName('ixmod:ban').setAliases(['hban','b'])
+	register('command', (name) => ChatLib.command(`housing mute ${name}`)).setName('ixmod:mute').setAliases(['hmute','m'])
+	register('command', (name) => ChatLib.command(`housing kick ${name}`)).setName('ixmod:kick').setAliases(['hkick','k'])
+}
+
 
 register('command', () => Settings.openGUI()).setName('ixmod').setAliases(["ix","ixm"])
 register('command', () => {
@@ -22,7 +40,7 @@ register('command', () => {
 
 if (Settings.misc_dev) register('command', () => {console.log(Player.getHeldItem().getRawNBT())}).setName('yoink')
 if (Settings.cmd_stats) register('command', () => {if (U.inHousing()) { ChatLib.command(`viewstats ${Player.getName()}`) }}).setName('mystats')
-if (Settings.cmd_unicode) register('command', () => {ChatLib.chat(`&9&m${'-'.repeat(52)}`);UniTexts.forEach(txt => ChatLib.chat(txt));ChatLib.chat(`&9&m${'-'.repeat(52)}`)}).setName('unicode').setAliases(['uni']) 
+
 
 if (Settings.cmd_unbreakable) {register('command', () => { if (Player.getHeldItem()) { 
 	if (!U.isCreative()) return ChatLib.chat('&cYou need to be in Creative mode for this command!')
@@ -41,16 +59,6 @@ if (Settings.cmd_unbreakable) {register('command', () => { if (Player.getHeldIte
     } // This is 100% my code it just looks coincidentally similar to the code in housingeditor
 }}).setCommandName('unbreakable')} 
 
-if (Settings.cmd_alias) {
-	register('command', (name) => ChatLib.command(`housing invite ${name}`)).setName('ixmod:invite').setAliases(['invite','inv'])
-	register('command', (name) => ChatLib.command(`visit ${name}`)).setName('ixmod:visit').setAliases(['vis','vi'])
-	register('command', () => ChatLib.command(`housing logs`)).setName('ixmod:logs').setAliases(['logs','log'])
-	register('command', (name) => ChatLib.command(`viewstats ${name}`)).setName('ixmod:stats').setAliases(['st','stats','stat'])
-	register('command', () => ChatLib.command(`viewglobalstats`)).setName('ixmod:globalstats').setAliases(['gst','gstats','gstat'])
-	register('command', (name) => ChatLib.command(`housing ban ${name}`)).setName('ixmod:ban').setAliases(['hban','b'])
-	register('command', (name) => ChatLib.command(`housing mute ${name}`)).setName('ixmod:mute').setAliases(['hmute','m'])
-	register('command', (name) => ChatLib.command(`housing kick ${name}`)).setName('ixmod:kick').setAliases(['hkick','k'])
-}
 
 register('command', () => {
 	ChatLib.chat('&9&lIXMOD')
@@ -67,27 +75,6 @@ if (Settings.cmd_3rdparty_cal) register('command', (textureId) => {
 	Player.getHeldItem().setName(Player.getHeldItem().getName()+`&${textureId[0]}&${textureId[1]}&${textureId[2]}`)
 }).setName('settexture').setAliases(['st'])
 
-/* This feature needs some polish, will be available in 1.4 mostlikely.
-if (Settings.cmd_ptoverride) {
-	register('command', (...args) => {
-		if (!args) return
-		args.forEach(v => {
-			v.replace('white_stained_glass','95')
-			.replace('orange_stained_glass','95:1')
-			.replace('magenta_stained_glass','95:2')
-			.replace('light_blue_stained_glass','95:3')
-			.replace('yellow_stained_glass','95:4')
-			.replace('lime_stained_glass','95:5')
-			.replace('pink_stained_glass','95:6')
-			.replace('gray_stained_glass','95:7')
-			.replace('light_gray_stained_glass','95:8')
-			.replace('cyan_stained_glass','95:9')
-			.replace('purple_stained_glass','95:10')
-			.replace('blue_stained_glass','95:11')
-			.replace('brown_stained_glass','95:12')
-			.replace('green_stained_glass','95:13')
-			.replace('red_stained_glass','95:14')
-			.replace('black_stained_glass','95:15')
-		})
-	}).setName('fill').setAliases(['/fill'])
-}*/
+register('command', () => {
+	console.log(TabList.getFooter().split('\n')[5])
+}).setName("getfooter")

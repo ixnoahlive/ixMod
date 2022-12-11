@@ -7,6 +7,23 @@ let HouseInfo = {
 }
 let HouseInfo_Text = new Text(``, 5, 5).setShadow(true)
 
+register('step', () => {
+	if (TabList.getFooter()==null) return
+	let SplitFooter;
+	try {
+		SplitFooter = TabList.getFooter().split('\n')
+	} catch (error) {U.log(error)}	
+
+	if (U.inHousing()) {
+		if (Settings.gui_houseinfo==true && SplitFooter) {
+			if (SplitFooter[SplitFooter.length-3].match(/Guests:/)==null) return; // We don't necessarily need a full match, this partial one should be enough.
+			let LineOfInterest = SplitFooter[SplitFooter.length-3] // This is required because House Owners have additional details on their footer. 
+			HouseInfo.guests = parseInt(U.removeColor(LineOfInterest).replace('Guests: ', '').replace(/ \| Cookies:*/, '').split(' ')[0]) // I'm so fucking done with regex i have resorted to splitting
+			HouseInfo.cookies = parseInt(U.removeColor(LineOfInterest).replace('Guests: ', '').replace(/ \| Cookies:*/, '').split(' ')[1])
+		}
+	}
+}).setFps(1)
+
 register('renderOverlay', () => {
 	if (U.inHousing()) {
 		if (Settings.gui_houseinfo==true) {
@@ -33,20 +50,8 @@ register('renderOverlay', () => {
 	}	
 })
 
-register('step', () => {
-	if (TabList.getFooter()==null) return
-	const tab = TabList.getFooter().split('\n')
-		if (U.inHousing()) {
-			if (Settings.gui_houseinfo==true && tab) {
-				if (tab[tab.length-3]==undefined) { return }
-				HouseInfo.guests = parseInt(tab[tab.length-3].replace(/§([a-z]|[0-9])/g, '').replace(/!([0-9])/, '').replace(/,/, '').split(' | ')[0].replace('Guests: ', ''))
-				HouseInfo.cookies = parseInt(tab[tab.length-3].replace(/§([a-z]|[0-9])/g, '').replace(/!([0-9])/, '').replace(/,/, '').split(' | ')[1].replace('Cookies: ', ''))
-			}
-		}
-}).setFps(1)
 
-
-
+// House Tracker
 register('step', () => {
 	if (!Settings.tracker_enabled) return;
 	if (U.inHousing()==false && U.isCreative()==false) return

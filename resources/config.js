@@ -11,6 +11,15 @@ const Manual = new TextComponent('&b[&9&nClick here to view the House Tracker Ma
 class Settings {
     /////////////////
     //// General ////
+
+    @TextProperty({
+        name: "Prefix",
+        description: "Changes the prefix for ixMod's important messages.",
+        category: "General",
+        placeholder: "&9[&7ixMod&9]"
+    })
+    gen_prefix = '&9[&7ixMod&9]'
+
     /*@TextProperty({
         name: "API Key",
         description: "Used to communicate with the Hypixel API. Generate with /api new! Only required for a few commands.",
@@ -74,6 +83,12 @@ class Settings {
 
     //////////////////
     //// Commands ////
+    @CheckboxProperty({
+        name: "/saveitem",
+        description: "Save your held item to a creative tab\nAlso enables: /removeitem, /clearitems",
+        category: "Commands",
+    })
+    cmd_saveitem = true
     @CheckboxProperty({
         name: "/unbreakable",
         description: "Makes your held item unbreakable",

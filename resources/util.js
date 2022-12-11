@@ -8,12 +8,20 @@ const C10PacketCreativeInventoryAction = Java.type("net.minecraft.network.play.c
 class U {
     constructor() {
         /**
+         * Removes color codes from a string
+         * @param {string} string String to remove color from
+         * @returns {string} Cleaned string
+         */
+        this.removeColor = (string) => {
+            return string.replaceAll(/§[0-9A-FK-OR]/gi, '')
+        }
+        /**
          * Returns a ixMod message, good to provide clarity when a message may not obviously be from ixMod.
          * @param {string} message The message to send
          * @returns {Message} The message sent
          */
         this.chat = (message) => {
-            return ChatLib.chat(`&9[&7ixMod&9] &f${message}`)
+            return ChatLib.chat(`${Settings.gen_prefix} &r${message}`)
         }
         /**
          * Adds commas to a number
@@ -28,14 +36,34 @@ class U {
          * Appends to an array which is written to a JSON file
          * @param {string} file File path
          * @param {*} item The item to add
-         * @returns {number} Status code, 200 = success, 400 = duplicate, none = something went wrong
+         * @returns {number} Status code, 200 = success, 404 = file isn't right, 400 = duplicate, none = something went wrong
          */
         this.appendFile = (file, item) => {
             let x = JSON.parse(FileLib.read('ixMod', file))
-            if (x==null) return 400
+            if (x==null) return 404
             if (x.includes(item)) return 400
             if (!Array.isArray(x)) x = [] // Reset it idgaf you fucked with it probably
             x.push(item)
+            FileLib.write('ixMod', file, JSON.stringify(x), true)
+            return 200
+        }
+        /**
+         * The other pop file
+         * @param {string} file File path
+         * @param {*} item The item to remove
+         * @returns {number} Status code, 200 = success, 404 = file isn't right or the item wasn't found, none = something went wrong
+         */
+        this.popFile2 = (file, item) => {
+            let x = JSON.parse(FileLib.read('ixMod', file))
+
+            if (x==null) return 404
+            if (!x.includes(item)) return 400
+            if (!Array.isArray(x)) x = [] // Reset it idgaf you fucked with it probably
+
+            let ind = x.indexOf(item)
+            if (ind!==-1) {
+                x.splice(ind, 1);
+            } else return 404
             FileLib.write('ixMod', file, JSON.stringify(x), true)
             return 200
         }
