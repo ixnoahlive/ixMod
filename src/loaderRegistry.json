@@ -1,0 +1,15 @@
+[
+    "houseSpecific/jailGame",
+    
+    "data/houseTracker",
+    "data/betterStats",
+
+    "chat/hideAsterisk",
+    "chat/hideSpam",
+
+    "protools/redo",
+    "protools/notify",
+
+    "commands/rejoin",
+    "commands/palette"
+]

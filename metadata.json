@@ -1,0 +1,8 @@
+{
+    "name":"ixMod",
+    "creator": "ixNoah",
+
+    "description": "ixMod is your mod for Housing.",
+    "entry":"index.js",
+    "version": "2.0.0"
+}

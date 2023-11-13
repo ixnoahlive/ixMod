@@ -1,0 +1,17 @@
+{
+    "test1": {
+        "type":"message",
+        "content": {
+            "text":"%name/default_value%"
+        }
+    },
+    "test2": {
+        "type":"item",
+        "content": {
+            "name":"Item name",
+            "lore":[
+                "%desc/default_value%"
+            ]
+        }
+    }
+}
