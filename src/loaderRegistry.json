@@ -11,5 +11,7 @@
     "protools/notify",
 
     "commands/rejoin",
-    "commands/palette"
+    "commands/palette",
+
+    "items/buttonbuilder"
 ]
