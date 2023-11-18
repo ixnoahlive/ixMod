@@ -1,49 +1,26 @@
-import Input from "../../utils/types/Input"
-
-const isHoveredField = net.minecraft.client.gui.GuiButton.class.getDeclaredField("field_146123_n");
-isHoveredField.setAccessible(true);
-
-// the real shit down here
-
-const BBGui = new Gui();
-BBGui.addButton(1, Renderer.screen.getWidth()/2-64, Renderer.screen.getHeight()/2, 128, 20, "Apply NBT");
-
-BBGui.registerClicked((mouseX, mouseY, mouseButton) => {
-    if (isHoveredField.get(BBGui.getButton(1))) {
-        ChatLib.chat('hiya :3')
-    }
-})
-
-const NameField = new Input(Renderer.screen.getWidth()/2-64, Renderer.screen.getHeight()/2-60, 128, 20)
-NameField.setEnabled(true)
-NameField.setText('Button Name')
-
-const LoreField = new Input(Renderer.screen.getWidth()/2-64, Renderer.screen.getHeight()/2-30, 128, 20)
-LoreField.setEnabled(true)
-LoreField.setText('Button Description')
+const { isCreative, hypixelLore } = require("../../utils/generic")
 
 module.exports = {
     name: 'Button Builder',
-    description: 'Allows you to build simple Hypixel-styled UI elements for your Custom Menu. Open editor with the &e/btn &rcommand!',
-    subcategory: 'Items',
+    description: 'Adds the /buildbutton command\nSyntax: /buildbutton <title> | <description> &8| <label1?>;<label2...',
+    subcategory: 'Commands',
 
     options: [],
 
     registers: [
         {
             name: 'command',
-            run() {
-                BBGui.open()
-            }, create(trigger) trigger.setName('btn')
-        },
-        {
-            name: 'renderOverlay',
-            run() {
-                if (BBGui.isOpen()) {
-                    NameField.render()
-                    LoreField.render()
-                }  
-            }
+            run(config, ...args) {
+                args = args.join(' ').split(' | ')
+
+                if (!isCreative()) return ChatLib.chat('&cYou must be in Creative Mode to use this!')
+                if (!Player.getHeldItem()) return ChatLib.chat('&cYou must hold an item to use this!')
+                if (!args[0]) return ChatLib.chat('&cUsage: /buildbutton &n<title>&c | <description> | <label1?>;<label2...')
+                if (!args[1]) return ChatLib.chat('&cUsage: /buildbutton <title> | &n<description>&c | <label1?>;<label2...')
+                
+                Player.getHeldItem().setName( '&a' + args[0] )
+                Player.getHeldItem().setLore( hypixelLore(args[1], args[2]?.split(';')) )
+            }, create(trigger) trigger.setName('buildbutton')
         }
     ]
 }

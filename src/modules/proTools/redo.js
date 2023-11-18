@@ -48,7 +48,6 @@ module.exports = {
                 if (!RedoInProgress) {
                     CommandHistory.unshift(command)
                     CommandHistoryDate.unshift(Date.now()+5000)
-                    ChatLib.chat('Added to command history')
                 }
                 RedoInProgress = false
             }, create(trigger) trigger.setFilteredClass(PacketClientChat)
