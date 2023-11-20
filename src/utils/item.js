@@ -38,3 +38,26 @@ export function nbtToItem(nbtObject) {
 
     return getItemFromNBT(str);
 }
+
+export function setItemName(nbt, newName) {
+    if (!nbt.tag) nbt.tag = {}
+    if (!nbt.tag.display) nbt.tag.display = {}
+    nbt.tag.display.Name = newName
+
+    return nbt
+}
+
+export function setItemLore(nbt, newLore) {
+    if (!nbt.tag) nbt.tag = {}
+    if (!nbt.tag.display) nbt.tag.display = {}
+    nbt.tag.display.Lore = newLore
+    
+    return nbt
+}
+
+export function getItemLore(nbt) {
+    if (!nbt.tag) nbt.tag = {}
+    if (!nbt.tag.display) nbt.tag.display = {}
+
+    return nbt.tag.display.Lore || []
+}

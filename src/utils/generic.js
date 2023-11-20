@@ -38,7 +38,8 @@ export function hypixelLore(str, labels = []) {
     });
     if (line) (lines.push(line));
 
-    lines = lines.map(line => {return '§7'+line});
+    lines[lines.length-1]
+    lines = lines.map(line => {return '§7'+line.addFormatting()});
 
     if (labels?.length) lines.push('');
     labels.forEach(label => {
