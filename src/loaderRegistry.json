@@ -13,5 +13,8 @@
     "commands/rejoin",
     "commands/palette",
 
-    "items/buttonbuilder"
+    "items/buttonbuilder",
+
+    "moderation/blacklist",
+    "moderation/crashlog"
 ]
